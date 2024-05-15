@@ -1,6 +1,6 @@
 # pokedex
 
-This template should help get you started developing with Vue 3 in Vite.
+App VueVS pour s'entraîner à l'utilisation d'une API (ici https://tyradex.vercel.app/docs/pokemon/pokedex)
 
 ## Recommended IDE Setup
 
