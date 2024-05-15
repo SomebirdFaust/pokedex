@@ -64,10 +64,4 @@ export default {
       </div>
   </div>
 </div>
-
-        </template>
-        <br>
-      </div>
-    </div>
-  </div>
 </template>

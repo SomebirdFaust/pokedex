@@ -53,7 +53,7 @@ export default {
         <div class="carte">
           <router-link :to="{ name: 'pokemon-details', params: { id: pokemon.pokedex_id }}">
           <h2>Nom : {{ pokemon.name.fr }}</h2>
-          <p>ID : {{ pokemon.pokedex_id }}</p>
+          <p>ID Pokédex : {{ pokemon.pokedex_id }}</p>
           <p>Autres langues : {{ pokemon.name.en }}, {{ pokemon.name.jp }}</p>
           <img v-if="isShiny" :src="pokemon.sprites.shiny">
           <img v-else :src="pokemon.sprites.regular">
