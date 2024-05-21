@@ -47,7 +47,7 @@ export default {
         </div>
         <template v-if="pokemonData.evolution && pokemonData.evolution">
           <h2>Evolutions : </h2>
-          <p>Précédente(s)</p>
+          <p>Précédente(s) : </p>
           <div v-for="(preEvolution, index) in pokemonData.evolution.pre">
             <p :key="index">Nom : {{ preEvolution.name }}</p>
             <p :key="index">ID Pokédex : {{ preEvolution.pokedex_id }}</p>
