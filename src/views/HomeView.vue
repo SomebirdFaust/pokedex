@@ -1,9 +1,6 @@
-<script setup>
-</script>
-
 <template>
   <main>
-    <h1>Page d'accueil</h1>
+    <h1 className="text-3xl font-bold underline">Page d'Accueil</h1>
   </main>
 </template>
 

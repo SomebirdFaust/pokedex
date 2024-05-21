@@ -50,7 +50,7 @@ export default {
 
     <h1>Pokémons</h1>
     <div v-for="pokemon in filteredList()" :key="pokemon.id">
-        <div>
+        <div class="flex flex-row">
           <router-link :to="{ name: 'pokemon-details', params: { id: pokemon.pokedex_id }}">
           <h2>Nom : {{ pokemon.name.fr }}</h2>
           <p>ID Pokédex : {{ pokemon.pokedex_id }}</p>
