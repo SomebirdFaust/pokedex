@@ -49,8 +49,8 @@ export default {
     </div>
 
     <h1>Pokémons</h1>
-    <div class="item pokemon" v-for="pokemon in filteredList()" :key="pokemon.id">
-        <div class="carte">
+    <div v-for="pokemon in filteredList()" :key="pokemon.id">
+        <div>
           <router-link :to="{ name: 'pokemon-details', params: { id: pokemon.pokedex_id }}">
           <h2>Nom : {{ pokemon.name.fr }}</h2>
           <p>ID Pokédex : {{ pokemon.pokedex_id }}</p>
