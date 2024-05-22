@@ -11,7 +11,6 @@ import { RouterLink, RouterView } from 'vue-router'
     <title>Pokédex</title>
   </head>
   <header>
-    <h1 class="text-green-700 text-xl">Test tailwind</h1>
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Accueil</RouterLink>
