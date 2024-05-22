@@ -11,7 +11,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <title>Pokédex</title>
   </head>
   <header>
-    <div class="bg-green-500 p-4">
+    <div class="p-4 bg-cyan-800">
       <nav class="flex justify-center space-x-4">
         <RouterLink to="/" class="px-4 py-2 rounded" active-class="bg-white text-green-500">Accueil</RouterLink>        
         <RouterLink to="/pokedex" class="px-4 py-2 rounded" active-class="bg-white text-green-500">Pokédex</RouterLink>
