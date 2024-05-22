@@ -13,12 +13,11 @@ import { RouterLink, RouterView } from 'vue-router'
   <header>
     <div class="bg-green-500 p-4">
       <nav class="flex justify-center space-x-4">
-        <RouterLink to="/" class="px-4 py-2 rounded" active-class="bg-white text-green-500">
-          Accueil
-        </RouterLink>
-        <RouterLink to="/about" class="px-4 py-2 rounded" active-class="bg-white text-green-500">A propos</RouterLink>
+        <RouterLink to="/" class="px-4 py-2 rounded" active-class="bg-white text-green-500">Accueil</RouterLink>        
         <RouterLink to="/pokedex" class="px-4 py-2 rounded" active-class="bg-white text-green-500">Pokédex</RouterLink>
         <RouterLink to="/legendaires" class="px-4 py-2 rounded" active-class="bg-white text-green-500">Légendaires</RouterLink>
+        <RouterLink to="/about" class="px-4 py-2 rounded" active-class="bg-white text-green-500">A propos</RouterLink>
+
       </nav>
     </div>
   </header>
