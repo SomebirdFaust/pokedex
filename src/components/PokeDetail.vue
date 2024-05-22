@@ -28,40 +28,99 @@ export default {
 </script>
 
 <template>
-  <div v-if="pokemonData">
-    <h1>{{ pokemonData.name.fr }}</h1>
-    <div class="item pokemon">
-      <div class="carte">
+  <div v-if="pokemonData" class="flex justify-center items-center text-center">
+    <div class="max-w-md mx-auto">
+      <h1 class="text-2xl text-cyan-900 text-center font-medium">{{ pokemonData.name.fr }}</h1>
+      <div class="p-4">
         <p>ID : {{ pokemonData.pokedex_id }}</p>
         <p>Autres langues : {{ pokemonData.name.en }}, {{ pokemonData.name.jp }}</p>
-        <p>Apparence normale : </p>
-        <img :src="pokemonData.sprites.regular">
-        <p>Apparence shiny : </p>
-        <img :src="pokemonData.sprites.shiny">
-        <p>Génération : {{ pokemonData.generation }}</p>
-        <p>Catégorie : {{ pokemonData.category }}</p>
-        <h2>Types : </h2>
-        <div v-for="(TypesPokemon, index) in pokemonData.types">
-        <p :key="index">{{ TypesPokemon.name }}</p>
-        <img :src="TypesPokemon.image">
+
+        <div class="flex justify-between border border-gray-300 p-4 rounded-lg shadow-lg bg-white">
+          <div>
+            <p>Apparence normale : </p>
+            <img :src="pokemonData.sprites.regular" class="w-full">
+          </div>
+          <div>
+            <p>Apparence shiny : </p>
+            <img :src="pokemonData.sprites.shiny" class="w-full">
+          </div>
         </div>
-        <template v-if="pokemonData.evolution && pokemonData.evolution">
-          <h2>Evolutions : </h2>
-          <p>Précédente(s) : </p>
-          <div v-for="(preEvolution, index) in pokemonData.evolution.pre">
-            <p :key="index">Nom : {{ preEvolution.name }}</p>
-            <p :key="index">ID Pokédex : {{ preEvolution.pokedex_id }}</p>
-            <br>
+
+        <div class="flex justify-center">
+
+          <div class="p-5">
+            <div class="p-4">
+              <p>Génération : {{ pokemonData.generation }}</p>
+              <p>Catégorie : {{ pokemonData.category }}</p>
+              <h2>Types : </h2>
+              <div class="flex justify-center">
+                <div v-for="(TypesPokemon, index) in pokemonData.types" :key="index">
+                  <p>{{ TypesPokemon.name }}</p>
+                  <div>
+                    <img :src="TypesPokemon.image" class="p-2">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <template v-if="pokemonData.evolution && pokemonData.evolution">
+              <h2>Evolutions : </h2>
+              <p>Précédente(s) : </p>
+              <div v-for="(preEvolution, index) in pokemonData.evolution.pre" :key="index" class="p-4">
+                <p>Nom : {{ preEvolution.name }}</p>
+                <p>ID Pokédex : {{ preEvolution.pokedex_id }}</p>
+              </div>
+              <p>Suivante(s) :</p>
+              <div v-for="(postEvolution, index) in pokemonData.evolution.next" :key="index" class="p-4">
+                <p>Nom : {{ postEvolution.name }}</p>
+                <p>ID Pokédex : {{ postEvolution.pokedex_id }}</p>
+                <p>Condition d'évolution : {{ postEvolution.condition }}</p>
+                <br>
+              </div>
+            </template>
           </div>
-          <p>Suivante(s) :</p>
-          <div v-for="(postEvolution, index) in pokemonData.evolution.next">
-            <p :key="index">Nom : {{ postEvolution.name }}</p>
-            <p :key="index">ID Pokédex : {{ postEvolution.pokedex_id }}</p>
-            <p :key="index">Condition d'évolution : {{ postEvolution.condition }}</p>
-            <br>
+
+          <div class="p-4">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+              <div class="px-4 py-3 border-b border-black">
+                <h2 class="text-lg font-semibold text-gray-800">Stats</h2>
+              </div>
+              <div class="px-4 py-3">
+                <table class="w-full border">
+                  <tbody>
+                    <tr>
+                      <td class="px-6 py-4 border border-black">PVs :</td>
+                      <td class="px-6 py-4 border border-black">{{ pokemonData.stats.hp }}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-6 py-4 border border-black">Attaque :</td>
+                      <td class="px-6 py-4 border border-black">{{ pokemonData.stats.atk }}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-6 py-4 border border-black">Défense :</td>
+                      <td class="px-6 py-4 border border-black">{{ pokemonData.stats.def }}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-6 py-4 border border-black">Attaque Spéciale :</td>
+                      <td class="px-6 py-4 border border-black">{{ pokemonData.stats.spe_atk }}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-6 py-4 border border-black">Défense Spéciale :</td>
+                      <td class="px-6 py-4 border border-black">{{ pokemonData.stats.spe_def }}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-6 py-4 border border-black">Vitesse :</td>
+                      <td class="px-6 py-4 border border-black">{{ pokemonData.stats.vit }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-        </template>
+        </div>
+        
       </div>
+    </div>
   </div>
-</div>
 </template>
+
