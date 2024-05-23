@@ -83,7 +83,6 @@ async function fetchPokemonData(id) {
     throw new Error(`Erreur : ${error.message}`);
   }
 }
-
 </script>
 
 <template>
