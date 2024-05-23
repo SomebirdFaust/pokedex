@@ -1,30 +1,31 @@
-<!-- <script> -->
-<!-- // export default {
-//   props: ['id'],
-//   data() {
-//     return {
-//       pokemonData: null
-//     };
-//   },
-//   mounted() {
-//     this.fetchPokemonData();
-//   },
-//   methods: {
-//     async fetchPokemonData() {
-//       try {
-//         const response = await fetch(`https://tyradex.tech/api/v1/pokemon/${this.id}`);
-//         if (!response.ok) {
-//           throw new Error('La requête a échoué');
-//         }
-//         const data = await response.json();
-//         this.pokemonData = data;
-//         console.log(this.pokemonData);
-//       } catch (error) {
-//         console.error('Erreur :', error);
-//       }
-//     }
-//   }
-// }; -->
+<!-- <script> 
+export default {
+   props: ['id'],
+   data() {
+     return {
+       pokemonData: null
+     };
+   },
+   mounted() {
+     this.fetchPokemonData();
+   },
+   methods: {
+     async fetchPokemonData() {
+       try {
+         const response = await fetch(`https://tyradex.tech/api/v1/pokemon/${this.id}`);
+         if (!response.ok) {
+           throw new Error('La requête a échoué');
+         }
+         const data = await response.json();
+         this.pokemonData = data;
+         console.log(this.pokemonData);
+       } catch (error) {
+         console.error('Erreur :', error);
+       }
+     }
+   }
+ }; -->
+
 <script>
 export default {
   data() {
@@ -106,6 +107,7 @@ async function fetchPokemonData(id) {
 
         <div class="flex justify-center">
           <div class="p-5">
+            
             <div class="p-4">
               <p>Génération : {{ pokemonData.generation }}</p>
               <p>Catégorie : {{ pokemonData.category }}</p>
@@ -122,7 +124,6 @@ async function fetchPokemonData(id) {
 
             <template v-if="pokemonData.evolution && pokemonData.evolution">
               <h2>Evolutions : </h2>
-
               <div v-if="pokemonData.evolution.pre">
                 <p>Précédente(s) : </p>
                 <div v-for="(preEvolution, index) in pokemonData.evolution.pre" :key="index" class="p-4">
