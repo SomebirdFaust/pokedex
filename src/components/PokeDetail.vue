@@ -1,30 +1,89 @@
 <script>
+// export default {
+//   props: ['id'],
+//   data() {
+//     return {
+//       pokemonData: null
+//     };
+//   },
+//   mounted() {
+//     this.fetchPokemonData();
+//   },
+//   methods: {
+//     async fetchPokemonData() {
+//       try {
+//         const response = await fetch(`https://tyradex.tech/api/v1/pokemon/${this.id}`);
+//         if (!response.ok) {
+//           throw new Error('La requête a échoué');
+//         }
+//         const data = await response.json();
+//         this.pokemonData = data;
+//         console.log(this.pokemonData);
+//       } catch (error) {
+//         console.error('Erreur :', error);
+//       }
+//     }
+//   }
+// };
 export default {
-  props: ['id'],
   data() {
     return {
-      pokemonData: null
+      pokemonData: null,
+      error: null,
     };
   },
-  mounted() {
-    this.fetchPokemonData();
+  async beforeRouteEnter(to, from, next) {
+    try {
+      const pokemonData = await fetchPokemonData(to.params.id);
+      if (!pokemonData) {
+        throw new Error('Cet ID est invalide.');
+      }
+      next((vm) => vm.setPost(pokemonData));
+    } catch (err) {
+      next((vm) => vm.setError(err));
+    }
+  },
+  async beforeRouteUpdate(to, from, next) {
+    this.pokemonData = null;
+    try {
+      const pokemonData = await fetchPokemonData(to.params.id);
+      if (!pokemonData) {
+        throw new Error('Cet ID est invalide.');
+      }
+      this.setPost(pokemonData);
+      next();
+    } catch (err) {
+      this.setError(err);
+      next(false);
+    }
   },
   methods: {
-    async fetchPokemonData() {
-      try {
-        const response = await fetch(`https://tyradex.tech/api/v1/pokemon/${this.id}`);
-        if (!response.ok) {
-          throw new Error('La requête a échoué');
-        }
-        const data = await response.json();
-        this.pokemonData = data;
-        console.log(this.pokemonData);
-      } catch (error) {
-        console.error('Erreur :', error);
-      }
-    }
-  }
+    setPost(pokemonData) {
+      this.pokemonData = pokemonData;
+      console.log(pokemonData);
+    },
+    setError(err) {
+      this.error = err.toString();
+    },
+  },
 };
+
+async function fetchPokemonData(id) {
+  try {
+    const response = await fetch(`https://tyradex.tech/api/v1/pokemon/${id}`);
+    if (!response.ok) {
+      throw new Error('Echec de la requête');
+    }
+    const data = await response.json();
+    if (!data) {
+      throw new Error('Aucune donnée.')
+    }
+    return data;
+  } catch (error) {
+    throw new Error(`Erreur : ${error.message}`);
+  }
+}
+
 </script>
 
 <template>
