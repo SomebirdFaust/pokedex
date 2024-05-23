@@ -33,7 +33,15 @@ const router = createRouter({
       name:'pokemon-details',
       component: PokeDetail,
       props: true,
-    }
+    },
+    {
+      path:'/404', 
+      component: () => import('../components/NotFound.vue'),
+    },
+    {
+      path:'/:catchAll(.*)',
+      redirect:'/404'
+    },
   ]
 })
 

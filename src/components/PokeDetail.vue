@@ -40,7 +40,7 @@ export default {
       }
       next((vm) => vm.setPost(pokemonData));
     } catch (err) {
-      next((vm) => vm.setError(err));
+      next('/404');
     }
   },
   async beforeRouteUpdate(to, from, next) {
@@ -53,8 +53,7 @@ export default {
       this.setPost(pokemonData);
       next();
     } catch (err) {
-      this.setError(err);
-      next(false);
+      next('/404');
     }
   },
   methods: {
@@ -76,7 +75,7 @@ async function fetchPokemonData(id) {
     }
     const data = await response.json();
     if (!data) {
-      throw new Error('Aucune donnée.')
+      throw new Error('Aucune donnée trouvée.');
     }
     return data;
   } catch (error) {
