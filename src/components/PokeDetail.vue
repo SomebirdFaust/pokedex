@@ -80,8 +80,8 @@ async function fetchPokemonData(id) {
       throw new Error('Aucune donnée trouvée.');
     }
     return data;
-  } catch (error) {
-    throw new Error(`Erreur : ${error.message}`);
+  } catch (err) {
+    next('/404');
   }
 }
 </script>
@@ -121,26 +121,6 @@ async function fetchPokemonData(id) {
                 </div>
               </div>
             </div>
-
-            <template v-if="pokemonData.evolution && pokemonData.evolution">
-              <h2>Evolutions : </h2>
-              <div v-if="pokemonData.evolution.pre">
-                <p>Précédente(s) : </p>
-                <div v-for="(preEvolution, index) in pokemonData.evolution.pre" :key="index" class="p-4">
-                  <p>Nom : {{ preEvolution.name }}</p>
-                  <p>ID Pokédex : {{ preEvolution.pokedex_id }}</p>
-                </div>
-              </div>
-              <div v-if="pokemonData.evolution.next">
-                <p>Suivante(s) :</p>
-                <div v-for="(postEvolution, index) in pokemonData.evolution.next" :key="index" class="p-4">
-                  <p>Nom : {{ postEvolution.name }}</p>
-                  <p>ID Pokédex : {{ postEvolution.pokedex_id }}</p>
-                  <p>Condition d'évolution : <br>{{ postEvolution.condition }}</p>
-                </div>
-                <br>
-              </div>
-            </template>
           </div>
 
           <div class="p-4">
@@ -148,9 +128,9 @@ async function fetchPokemonData(id) {
               <div class="px-4 py-3 border-b border-black">
                 <h2 class="text-lg font-semibold text-gray-800">Stats</h2>
               </div>
-              <div class="px-4 py-3">
+              <div class="px-6 py-3">
                 <table class="w-full border">
-                  <tbody>
+                  <tbody class="p-6">
                     <tr>
                       <td class="px-6 py-4 border border-black">PVs :</td>
                       <td class="px-6 py-4 border border-black">{{ pokemonData.stats.hp }}</td>
@@ -182,6 +162,29 @@ async function fetchPokemonData(id) {
           </div>
         </div>
         
+        <div class="p-5">
+            <template v-if="pokemonData.evolution && pokemonData.evolution">
+              <h2 class="p-2 text-xl">Evolutions : </h2>
+              <div v-if="pokemonData.evolution.pre" class="border border-gray-300 p-4 rounded-lg shadow-lg bg-white">
+                <p>Précédente(s) : </p>
+                <div v-for="(preEvolution, index) in pokemonData.evolution.pre" :key="index">
+                  <p>Nom : {{ preEvolution.name }}</p>
+                  <p>ID Pokédex : {{ preEvolution.pokedex_id }}</p>
+                </div>
+              </div>
+              <br>
+              <div v-if="pokemonData.evolution.next" class="border border-gray-300 p-4 rounded-lg shadow-lg bg-white">
+                <p>Suivante(s) :</p>
+                <div v-for="(postEvolution, index) in pokemonData.evolution.next" :key="index">
+                  <p>Nom : {{ postEvolution.name }}</p>
+                  <p>ID Pokédex : {{ postEvolution.pokedex_id }}</p>
+                  <p>Condition d'évolution : <br>{{ postEvolution.condition }}</p>
+                </div>
+                <br>
+              </div>
+            </template>
+           </div>
+
       </div>
     </div>
   </div>
