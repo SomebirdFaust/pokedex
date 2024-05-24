@@ -41,10 +41,6 @@ const router = createRouter({
     {
       path:'/:catchAll(.*)',
       redirect:'/404'
-    },
-    {
-      path:'/500',
-      component: () => import('../components/500.vue'),
     }
   ]
 })

@@ -136,7 +136,7 @@ async function fetchPokemonData(id) {
                 <div v-for="(postEvolution, index) in pokemonData.evolution.next" :key="index" class="p-4">
                   <p>Nom : {{ postEvolution.name }}</p>
                   <p>ID Pokédex : {{ postEvolution.pokedex_id }}</p>
-                  <p>Condition d'évolution : {{ postEvolution.condition }}</p>
+                  <p>Condition d'évolution : <br>{{ postEvolution.condition }}</p>
                 </div>
                 <br>
               </div>
