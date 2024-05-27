@@ -26,65 +26,77 @@ export default {
    }
  }; -->
 
-<script>
-export default {
-  data() {
-    return {
-      pokemonData: null,
-      error: null,
-    };
-  },
-  async beforeRouteEnter(to, from, next) {
-    try {
-      const pokemonData = await fetchPokemonData(to.params.id);
-      if (!pokemonData) {
-        throw new Error('Cet ID est invalide.');
-      }
-      next((vm) => vm.setPost(pokemonData));
-    } catch (err) {
-      next('/404');
-    }
-  },
-  async beforeRouteUpdate(to, from, next) {
-    this.pokemonData = null;
-    try {
-      const pokemonData = await fetchPokemonData(to.params.id);
-      if (!pokemonData) {
-        throw new Error('Cet ID est invalide.');
-      }
-      this.setPost(pokemonData);
-      next();
-    } catch (err) {
-      next('/404');
-    }
-  },
-  methods: {
-    setPost(pokemonData) {
-      this.pokemonData = pokemonData;
-      console.log(pokemonData);
-    },
-    setError(err) {
-      this.error = err.toString();
-    },
-  },
-};
-
-async function fetchPokemonData(id) {
-  try {
-    const response = await fetch(`https://tyradex.tech/api/v1/pokemon/${id}`);
-    if (!response.ok) {
-      throw new Error('Echec de la requête');
-    }
-    const data = await response.json();
-    if (!data) {
-      throw new Error('Aucune donnée trouvée.');
-    }
-    return data;
-  } catch (err) {
-    next('/404');
-  }
-}
-</script>
+ <script>
+ export default {
+   data() {
+     return {
+       pokemonData: null,
+       error: null,
+     };
+   },
+   async beforeRouteEnter(to, from, next) {
+     try {
+       const pokemonData = await fetchPokemonData(to.params.id);
+       next((vm) => vm.setPost(pokemonData));
+     } catch (err) {
+       if (err.message === 'Not Found' || err.message === 'Cannot read properties of undefined') {
+         next('/404');
+       } else {
+         console.error(err);
+         next('/404');
+       }
+     }
+   },
+   async beforeRouteUpdate(to, from, next) {
+     this.pokemonData = null;
+     try {
+       const pokemonData = await fetchPokemonData(to.params.id);
+       this.setPost(pokemonData);
+       next();
+     } catch (err) {
+       if (err.message === 'Not Found' || err.message === 'Cannot read properties of undefined') {
+         next('/404');
+       } else {
+         console.error(err);
+         next('/404');
+       }
+     }
+   },
+   methods: {
+     setPost(pokemonData) {
+       this.pokemonData = pokemonData;
+       console.log(pokemonData);
+     },
+     setError(err) {
+       this.error = err.toString();
+     },
+   },
+ };
+ 
+ async function fetchPokemonData(id) {
+   try {
+     const response = await fetch(`https://tyradex.tech/api/v1/pokemon/${id}`);
+     if (response.status === 404) {
+       throw new Error('Not Found');
+     }
+     if (!response.ok) {
+       throw new Error('Echec de la requête');
+     }
+     const data = await response.json();
+     if (!data) {
+       throw new Error('Aucune donnée trouvée.');
+     }
+     if (!data.name || !data.sprites || !data.stats) {
+       throw new Error('Cannot read properties of undefined');
+     }
+     return data;
+   } catch (err) {
+     throw err;
+   }
+ }
+ </script>
+ 
+ 
 
 <template>
   <div v-if="pokemonData" class="flex justify-center items-center text-center">
