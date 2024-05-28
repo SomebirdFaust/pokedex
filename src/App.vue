@@ -17,6 +17,7 @@ import { RouterLink, RouterView } from 'vue-router'
           <RouterLink to="/" class="px-4 py-2 rounded hover:bg-gray-200" active-class="bg-white text-green-500">Accueil</RouterLink>        
           <RouterLink to="/pokedex" class="px-4 py-2 rounded hover:bg-gray-200" active-class="bg-white text-green-500">Pokédex</RouterLink>
           <RouterLink to="/legendaires" class="px-4 py-2 rounded hover:bg-gray-200" active-class="bg-white text-green-500">Légendaires</RouterLink>
+          <RouterLink to="/types" class="px-4 py-2 rounded hover:bg-gray-200" active-class="bg-white text-green-500">Types</RouterLink>
           <RouterLink to="/about" class="px-4 py-2 rounded hover:bg-gray-200" active-class="bg-white text-green-500">A propos</RouterLink>
         </nav>
       </div>

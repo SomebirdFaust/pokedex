@@ -41,6 +41,11 @@ const router = createRouter({
     {
       path:'/:catchAll(.*)',
       redirect:'/404'
+    },
+    {
+    path:"/types",
+    name:"types",
+    component: () => import('../views/TypesView.vue'),
     }
   ]
 })

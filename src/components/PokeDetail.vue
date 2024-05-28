@@ -86,7 +86,7 @@ export default {
      if (!data) {
        throw new Error('Aucune donnée trouvée.');
      }
-     if (!data.name || !data.sprites || !data.stats) {
+     if (!data.name) {
        throw new Error('Cannot read properties of undefined');
      }
      return data;
@@ -182,22 +182,32 @@ export default {
                 <div v-for="(preEvolution, index) in pokemonData.evolution.pre" :key="index">
                   <p>Nom : {{ preEvolution.name }}</p>
                   <p>ID Pokédex : {{ preEvolution.pokedex_id }}</p>
+                  <button class="border border-gray-300 p-2 rounded-lg bg-white hover:bg-slate-400 hover:border-transparent hover:text-white mt-4">Voir</button>
                 </div>
               </div>
               <br>
               <div v-if="pokemonData.evolution.next" class="border border-gray-300 p-4 rounded-lg shadow-lg bg-white">
-                <p>Suivante(s) :</p>
-                <div v-for="(postEvolution, index) in pokemonData.evolution.next" :key="index">
-                  <p>Nom : {{ postEvolution.name }}</p>
-                  <p>ID Pokédex : {{ postEvolution.pokedex_id }}</p>
-                  <p>Condition d'évolution : <br>{{ postEvolution.condition }}</p>
-                </div>
-                <br>
+              <p>Suivante(s) :</p>
+              <div v-for="(postEvolution, index) in pokemonData.evolution.next" :key="index">
+                <p>Nom : {{ postEvolution.name }}</p>
+                <p>ID Pokédex : {{ postEvolution.pokedex_id }}</p>
+                <p>Condition d'évolution : <br>{{ postEvolution.condition }}</p>
+                  <button class="border border-gray-300 p-2 rounded-lg bg-white hover:bg-slate-400 hover:border-transparent hover:text-white mt-4">Voir</button>
               </div>
+              <br>
+            </div>
             </template>
            </div>
 
       </div>
     </div>
+  </div>
+  <div v-else  class="flex flex-col items-center text-center">
+      <h2 class="text-2xl text-cyan-900 font-medium py-4">Ce pokémon n'a pas de données...</h2>
+      <RouterLink to="/pokedex">
+        <button class="border border-gray-300 p-2 rounded-lg bg-white hover:bg-slate-400 hover:border-transparent hover:text-white mt-4">
+          Retourner au pokédex
+        </button>
+      </RouterLink>
   </div>
 </template>
