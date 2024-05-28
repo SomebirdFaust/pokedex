@@ -24,7 +24,8 @@ export default {
        }
      }
    }
- }; -->
+ }; 
+Ancien code-->
 
  <script>
  export default {
@@ -47,6 +48,7 @@ export default {
        }
      }
    },
+  //  before update pour éviter que le site charge sans données
    async beforeRouteUpdate(to, from, next) {
      this.pokemonData = null;
      try {
@@ -55,9 +57,8 @@ export default {
        next();
      } catch (err) {
        if (err.message === 'Not Found' || err.message === 'Cannot read properties of undefined') {
-         next('/404');
+         next('/404'); //renvoie à la page d'erreur 404 si il y a des pbs de lecture de l'api (notament à cause d'un ID invalide)
        } else {
-         console.error(err);
          next('/404');
        }
      }
@@ -65,7 +66,7 @@ export default {
    methods: {
      setPost(pokemonData) {
        this.pokemonData = pokemonData;
-       console.log(pokemonData);
+       //console.log(pokemonData); (renvoie les données récupérées dans la console pour le débug)
      },
      setError(err) {
        this.error = err.toString();
@@ -73,7 +74,7 @@ export default {
    },
  };
  
- async function fetchPokemonData(id) {
+ async function fetchPokemonData(id) { //récupère l'id dans l'url pour ensuite aller chercher dans l'api avec cet id en question
    try {
      const response = await fetch(`https://tyradex.tech/api/v1/pokemon/${id}`);
      if (response.status === 404) {
@@ -175,8 +176,10 @@ export default {
         </div>
         
         <div class="p-5">
+          <!-- Si le pokémon a des évolutions, montrer cette partie -->
             <template v-if="pokemonData.evolution && pokemonData.evolution">
               <h2 class="p-2 text-xl">Evolutions : </h2>
+              <!-- Si le pokémon a des formes avant la sienne, montrer cette partie -->
               <div v-if="pokemonData.evolution.pre" class="border border-gray-300 p-4 rounded-lg shadow-lg bg-white">
                 <p>Précédente(s) : </p>
                 <div v-for="(preEvolution, index) in pokemonData.evolution.pre" :key="index">
@@ -186,6 +189,7 @@ export default {
                 </div>
               </div>
               <br>
+              <!-- si le pokémon a des évolutions à suivre, montrer cette partie -->
               <div v-if="pokemonData.evolution.next" class="border border-gray-300 p-4 rounded-lg shadow-lg bg-white">
               <p>Suivante(s) :</p>
               <div v-for="(postEvolution, index) in pokemonData.evolution.next" :key="index">
@@ -202,6 +206,7 @@ export default {
       </div>
     </div>
   </div>
+  <!-- Cas rare où le pokémon n'a pas de données (missingn°), mais que l'api ne renvoie pas d'erreur parce que les champs sont null et pas vides -->
   <div v-else  class="flex flex-col items-center text-center">
       <h2 class="text-2xl text-cyan-900 font-medium py-4">Ce pokémon n'a pas de données...</h2>
       <RouterLink to="/pokedex">

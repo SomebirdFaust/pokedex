@@ -9,6 +9,7 @@ export default {
       isShiny: false
     };
   },
+  //cherche les données et les établis pour pouvoir les appeler plus tard
   mounted() {
     this.fetchPokemonData();
   },
@@ -25,6 +26,7 @@ export default {
         console.error('Erreur :', error);
       }
     },
+    //permet de chercher les pokémons par nom ou id
     filteredList() {
       if (!this.pokemonData) return [];
       return this.pokemonData.filter(pokemon => {
@@ -55,6 +57,7 @@ export default {
         <h2 class="text-xl font-bold mb-2">Nom : {{ pokemon.name.fr }}</h2>
         <p class="mb-1">ID Pokédex : {{ pokemon.pokedex_id }}</p>
         <p class="mb-4">Autres langues : {{ pokemon.name.en }}, {{ pokemon.name.jp }}</p>
+        <!-- "isShiny" est là pour afficher l'image si la case "shiny" est cochée -->
         <img v-if="isShiny" :src="pokemon.sprites.shiny" class="w-full h-auto rounded-lg">
         <img v-else :src="pokemon.sprites.regular" class="w-full h-auto rounded-lg">
         <router-link :to="{ name: 'pokemon-details', params: { id: pokemon.pokedex_id }}" class="border border-gray-300 p-2 rounded-lg bg-white hover:bg-slate-400 hover:border-transparent hover:text-white">En savoir plus</router-link>

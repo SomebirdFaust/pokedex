@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     filteredPokemon() {
-      if (!this.pokemonData) return [];
+      if (!this.pokemonData) return []; //détermine quels pokémon sont légendaires grâce à leur taux de capture (inférieur ou égal à 10)
       return this.pokemonData.filter(pokemon => {
         return pokemon.catch_rate <= 10 && (pokemon.name.fr.toLowerCase().includes(this.searchQuery.toLowerCase()) || pokemon.pokedex_id.toString().includes(this.searchQuery.toLowerCase()));
       });

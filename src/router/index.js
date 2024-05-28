@@ -46,6 +46,7 @@ const router = createRouter({
       component: () => import('../components/NotFound.vue'),
     },
     {
+      // permet de rediriger automatiquement si une page n'est pas trouvée
       path:'/:catchAll(.*)',
       redirect:'/404'
     },
