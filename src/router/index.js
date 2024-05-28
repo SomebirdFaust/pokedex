@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PokeDetail from '../components/PokeDetail.vue'
+import TypeDetail from '../components/TypeDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,12 @@ const router = createRouter({
       path: '/pokemon/:id',
       name:'pokemon-details',
       component: PokeDetail,
+      props: true,
+    },
+    {
+      path: '/type/:id',
+      name:'type-detail',
+      component: TypeDetail,
       props: true,
     },
     {
